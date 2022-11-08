@@ -1,11 +1,11 @@
 import Head from 'next/head'
 import Header from '@components/header'
 
-export default function Home() {
+export default function Favorites() {
   return (
     <>
       <Head>
-        <title>SignIn</title>
+        <title>Favorites</title>
       </Head>
       <div>
         <Header />

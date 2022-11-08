@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { FormEvent, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 export default function Header() {
   const router = useRouter()
@@ -17,7 +18,13 @@ export default function Header() {
   }
 
   useEffect(()=>{
-    if (!isLogged) router.replace("/signin")
+    if (!isLogged) {
+      toast.success("Até breve!", {
+        icon: "😞",
+        autoClose: 2500
+      });
+      router.replace("/signin")
+    }
   }, [isLogged, router])
 
   return (

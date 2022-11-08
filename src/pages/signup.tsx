@@ -20,7 +20,7 @@ export default function SignUp() {
         <input type="password" name="password" id="pass" />
         <input type="password-confirm" name="password-confirm" id="pass-confirm" />
         <button type="submit">Cadastrar</button>
-        <Link href="/">Entrar com e-mail</Link>
+        <Link href="/signin">Entrar com e-mail</Link>
       </form>
     </div>
   )

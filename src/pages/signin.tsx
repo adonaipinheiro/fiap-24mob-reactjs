@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { FormEvent, useRef } from 'react'
 import { useDispatch } from 'react-redux'
+import { toast } from 'react-toastify'
 
 export default function SignIn() {
   const router = useRouter()
@@ -20,6 +21,10 @@ export default function SignIn() {
     if (email && pass) {
       API.signIn(email, pass).then(()=>{
         dispatch(logIn())
+        toast.success("Login realizado com sucesso!", {
+          icon: "🚀",
+          autoClose: 2500
+        });
         router.replace("/")
       }).catch((e)=>{
         alert(e)

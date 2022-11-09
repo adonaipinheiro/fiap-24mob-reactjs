@@ -73,7 +73,7 @@ export default function SignIn() {
               helperText={errors.email}
               onChange={handleChange}
               onBlur={handleBlur}
-              value={values.email} />
+              value={values.email} /><br/>
 
             <TextField
               className={styles.input}
@@ -85,14 +85,14 @@ export default function SignIn() {
               helperText={errors.pass}
               onChange={handleChange}
               onBlur={handleBlur}
-              value={values.pass} />
+              value={values.pass} /><br/>
 
             <Button 
               className={styles.buttonSignIn} 
               variant="contained" 
               type='submit' 
               disabled={isSubmitting}>{isSubmitting ? (<CircularProgress size={'1.5rem'} />) : 'Entrar'}
-            </Button>
+            </Button><br/>
 
             <Button className={styles.buttonSignUp} variant="outlined" onClick={handleSignUp}>Cadastrar</Button>
           </form>

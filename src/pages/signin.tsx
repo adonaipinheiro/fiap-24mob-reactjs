@@ -2,7 +2,8 @@ import { Formik } from 'formik'
 import * as Yup from 'yup'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
+import LoadingPage from '@components/loadingPage'
 import { toast } from 'react-toastify'
 
 import { API } from '@services/api'
@@ -10,8 +11,7 @@ import styles from '@styles/SignIn.module.css'
 import { logIn } from '@store/auth/actions'
 import { setUser } from '@store/user/actions'
 import { Button, CircularProgress, TextField } from '@mui/material'
-import { useEffect, useState } from 'react'
-import { RootState } from '@store'
+import { useEffect } from 'react'
 import { useRedirect } from 'src/hooks/useRedirect'
 
 export default function SignIn() {
@@ -54,7 +54,7 @@ export default function SignIn() {
     handleAuthRedirect()
   }, [handleAuthRedirect])
 
-  if (isLoading) return <div>Loading</div>
+  if (isLoading) return <LoadingPage />
 
   return (
    <>
@@ -108,6 +108,7 @@ export default function SignIn() {
           </form>
         )}
         </Formik>
+        <span className={styles.footer}>Feito com amor ❤️</span>
       </div>
    </>
   )

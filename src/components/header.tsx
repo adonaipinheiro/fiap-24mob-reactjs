@@ -1,11 +1,8 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import { RootState } from "@store";
-import { logIn, logOut } from "@store/auth/actions";
-import { removeUser, setUser } from "@store/user/actions";
+import { logOut } from "@store/auth/actions";
+import { removeUser } from "@store/user/actions";
 import Link from "next/link";
-import { useRouter } from "next/router";
-import { FormEvent, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { FormEvent } from "react";
+import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { useRedirect } from "src/hooks/useRedirect";
 

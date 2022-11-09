@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import Header from '@components/header'
+import LoadingPage from '@components/loadingPage'
 import Link from 'next/link'
 import { useRedirect } from 'src/hooks/useRedirect'
 import { useEffect } from 'react'
@@ -11,7 +12,7 @@ export default function Favorites() {
     handleAuthRedirect()
   }, [handleAuthRedirect])
 
-  if (isLoading) return <div>Loading</div>
+  if (isLoading) return <LoadingPage />
 
   return (
     <>

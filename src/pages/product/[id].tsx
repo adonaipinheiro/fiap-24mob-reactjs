@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import Header from '@components/header'
+import LoadingPage from '@components/loadingPage'
 import { useRouter } from 'next/router'
 import { useRedirect } from 'src/hooks/useRedirect'
 import { useEffect } from 'react'
@@ -13,8 +14,8 @@ export default function Products() {
     handleAuthRedirect()
   }, [handleAuthRedirect])
 
-  if (isLoading) return <div>Loading</div>
-  
+  if (isLoading) return <LoadingPage />
+
   return (
     <>
       <Head>

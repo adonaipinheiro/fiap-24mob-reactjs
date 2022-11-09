@@ -1,0 +1,14 @@
+.container {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.footer {
+  position: absolute;
+  bottom: 2rem;
+}

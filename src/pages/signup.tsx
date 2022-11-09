@@ -1,6 +1,7 @@
 import Link from "next/link"
+import LoadingPage from '@components/loadingPage'
 import { useRouter } from "next/router"
-import { FormEvent, useEffect, useState } from "react"
+import { FormEvent, useEffect, } from "react"
 import { useRedirect } from "src/hooks/useRedirect"
 
 export default function SignUp() {
@@ -16,7 +17,7 @@ export default function SignUp() {
     handleAuthRedirect()
   }, [handleAuthRedirect])
 
-  if (isLoading) return <div>Loading</div>
+  if (isLoading) return <LoadingPage />
 
   return (
     <div>

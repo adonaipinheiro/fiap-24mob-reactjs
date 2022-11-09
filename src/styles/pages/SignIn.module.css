@@ -38,3 +38,8 @@
 .buttonSignUp {
   width:70%;
 }
+
+.footer {
+  position: absolute;
+  bottom: 2rem;
+}

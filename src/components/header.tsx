@@ -7,33 +7,22 @@ import { useRouter } from "next/router";
 import { FormEvent, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import { useRedirect } from "src/hooks/useRedirect";
 
 export default function Header() {
-  const router = useRouter()
   const dispatch = useDispatch()
-  
-  const isLogged = useSelector((state: RootState) => state.auth.isLogged)
+  const { handleLogout } = useRedirect()
 
-  const handleLogout = (e: FormEvent) => {
+  const logout = (e: FormEvent) => {
     e.preventDefault()
+    toast.success("Você foi deslogado!", {
+      icon: "😞",
+      autoClose: 2500
+    });
     dispatch(logOut())
     dispatch(removeUser())
+    handleLogout()
   }
-
-  useEffect(()=>{
-    const localIsLogged = !!localStorage.getItem("isLogged")
-    if (!isLogged && !localIsLogged) {
-      toast.success("Você foi deslogado!", {
-        icon: "😞",
-        autoClose: 2500
-      });
-      router.replace("/signin")
-    } else {
-      const localUserInfo = localStorage.getItem("userInfo")
-      dispatch(logIn())
-      localUserInfo && dispatch(setUser(JSON.parse(localUserInfo)))
-    }
-  }, [isLogged])
 
   return (
     <div>
@@ -43,7 +32,7 @@ export default function Header() {
       </div>
       <div>
         <span>Adonai</span>
-        <button onClick={handleLogout}>Logout</button>
+        <button onClick={logout}>Logout</button>
       </div>
     </div>
   )

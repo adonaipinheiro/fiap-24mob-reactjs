@@ -1,14 +1,22 @@
 import Link from "next/link"
 import { useRouter } from "next/router"
-import { FormEvent } from "react"
+import { FormEvent, useEffect, useState } from "react"
+import { useRedirect } from "src/hooks/useRedirect"
 
 export default function SignUp() {
   const router = useRouter()
+  const {isLoading, handleAuthRedirect} = useRedirect()
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
     router.replace('/')
   }
+
+  useEffect(()=>{
+    handleAuthRedirect()
+  }, [handleAuthRedirect])
+
+  if (isLoading) return <div>Loading</div>
 
   return (
     <div>

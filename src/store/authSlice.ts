@@ -1,11 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 export interface AuthState {
-  isLogged: boolean
+  isLogged: boolean,
+  isLoading: true
 }
 
 const initialState: AuthState = {
-  isLogged: false
+  isLogged: false,
+  isLoading: true
 }
 
 export const authSlice = createSlice({

@@ -2,7 +2,7 @@ import { Formik } from 'formik'
 import * as Yup from 'yup'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
 
 import { API } from '@services/api'
@@ -10,10 +10,14 @@ import styles from '@styles/SignIn.module.css'
 import { logIn } from '@store/auth/actions'
 import { setUser } from '@store/user/actions'
 import { Button, CircularProgress, TextField } from '@mui/material'
+import { useEffect, useState } from 'react'
+import { RootState } from '@store'
+import { useRedirect } from 'src/hooks/useRedirect'
 
 export default function SignIn() {
   const router = useRouter()
   const dispatch = useDispatch()
+  const { isLoading, handleAuthRedirect } = useRedirect()
 
   const LoginSchema = Yup.object().shape({
     email: Yup.string().email("Digite um e-mail válido").required("Campo obrigatório").trim(),
@@ -45,6 +49,12 @@ export default function SignIn() {
   const handleSignUp = () => {
     router.push('/signup');
   }
+
+  useEffect(()=>{
+    handleAuthRedirect()
+  }, [handleAuthRedirect])
+
+  if (isLoading) return <div>Loading</div>
 
   return (
    <>

@@ -1,0 +1,42 @@
+.container {
+  display: flex;
+  flex: 1;
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.formContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background: #FFFFFF;
+  padding: 2rem;
+  margin: 2rem;
+  border-radius: 1rem;
+  width: 400px;
+  box-shadow: -1px 5px 10px 0px rgba(94,94,94,0.5);
+}
+
+@media (max-width: 540px) {
+  .formContainer {
+    width: 90%;
+  }
+}
+
+.input {
+  width:100%;
+  margin-bottom: 1rem;
+}
+
+.buttonSignIn {
+  width:70%;
+  margin-bottom: 1rem;
+}
+
+.buttonSignUp {
+  width:70%;
+}

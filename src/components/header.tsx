@@ -1,5 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { RootState } from "@store";
-import { logOut } from "@store/auth/actions";
+import { logIn, logOut } from "@store/auth/actions";
+import { removeUser, setUser } from "@store/user/actions";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { FormEvent, useEffect } from "react";
@@ -15,17 +17,23 @@ export default function Header() {
   const handleLogout = (e: FormEvent) => {
     e.preventDefault()
     dispatch(logOut())
+    dispatch(removeUser())
   }
 
   useEffect(()=>{
-    if (!isLogged) {
-      toast.success("Até breve!", {
+    const localIsLogged = !!localStorage.getItem("isLogged")
+    if (!isLogged && !localIsLogged) {
+      toast.success("Você foi deslogado!", {
         icon: "😞",
         autoClose: 2500
       });
       router.replace("/signin")
+    } else {
+      const localUserInfo = localStorage.getItem("userInfo")
+      dispatch(logIn())
+      localUserInfo && dispatch(setUser(JSON.parse(localUserInfo)))
     }
-  }, [isLogged, router])
+  }, [isLogged])
 
   return (
     <div>

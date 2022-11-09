@@ -9,6 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@fontsource/roboto": "^4.5.8",
+    "@mui/material": "^5.10.13",
     "@next/font": "^13.0.2",
     "@reduxjs/toolkit": "^1.9.0",
     "@types/node": "18.11.9",
@@ -18,12 +22,14 @@
     "cookies-next": "^2.1.1",
     "eslint": "8.27.0",
     "eslint-config-next": "13.0.2",
+    "formik": "^2.2.9",
     "next": "13.0.2",
     "next-pwa": "^5.6.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-redux": "^8.0.5",
     "react-toastify": "^9.1.1",
-    "typescript": "4.8.4"
+    "typescript": "4.8.4",
+    "yup": "^0.32.11"
   }
 }

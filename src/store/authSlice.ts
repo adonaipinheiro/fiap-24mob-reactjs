@@ -13,9 +13,11 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     logIn: (state) => {
+      localStorage.setItem("isLogged", "true")
       state.isLogged = true
     },
     logOut: (state) => {
+      localStorage.removeItem("isLogged")
       state.isLogged = false
     },
   },

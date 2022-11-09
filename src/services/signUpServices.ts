@@ -21,10 +21,6 @@ const signUpServices = {
           password
         }
       )
-
-      console.log(data, status)
-
-      // return data
     } catch (error) {
       throw 'Não foi possível cadastrar'
     }

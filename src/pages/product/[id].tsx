@@ -1,81 +1,25 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import Head from 'next/head'
-import Header from '@components/header'
-import LoadingPage from '@components/loadingPage'
-import { useRouter } from 'next/router'
-import { useRedirect } from 'src/hooks/useRedirect'
-import { useEffect, useState } from 'react'
-import useServices from '@services/useServices'
-import { fullProductDetail } from '@services/types'
-import { toast } from 'react-toastify'
 import styles from '@styles/Products.module.css'
 import { CircularProgress } from '@mui/material'
 import { Star, StarBorder } from '@mui/icons-material'
+import { Wrapper } from "@googlemaps/react-wrapper";
+
+import Header from '@components/header'
+import LoadingPage from '@components/loadingPage'
+import Map from '@components/Map/map'
+import Marker from '@components/Map/marker'
+import useProductDetail from 'src/hooks/useProductDetail';
 
 export default function Products() {
-  const router = useRouter()
-  const [product, setProduct] = useState<fullProductDetail>()
-  const { isLoading, handleAuthRedirect, handleLogout } = useRedirect()
-  const {id} = router.query as {id: string};
-  const { getProductById, loading, makeFavorite } = useServices()
-
-  const formatter = new Intl.NumberFormat('pt-BR', {
-    style: 'currency',
-    currency: 'BRL',
-  });
-
-  const handleProductDetail = () =>{
-    getProductById(id)
-    .then(r=> {
-      setProduct(r.product)
-    })
-    .catch(e=>{
-      handleLogout()
-      console.log(e)
-    })
-  }
-
-  const handleMakeFavorite = () => {
-    if (product) {
-      makeFavorite(product._id)
-        .then(()=>{
-          toast.success("Produto atualizado com sucesso!", {
-            icon: "🚀",
-            autoClose: 2500
-          });
-          handleProductDetail()
-        })
-        .catch(()=>{
-          toast.error('Não foi possível atualizar o produto', {
-            icon: "😞",
-            autoClose: 2500
-          });
-        })
-    }
-  }
-
-  const handleLocation = () => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        console.log(position)
-      }, () => {
-        toast.warning('Precisamos da sua permissão para buscar a sua localização', {
-          icon: "🗺️",
-          autoClose: 2500
-        });
-      });
-    }
-  }
-
-  useEffect(()=>{
-    handleLocation()
-    handleProductDetail()
-    handleAuthRedirect()
-    toast.info("Para marcar ou desmarcar um produto como favorito, basta clicar na estrela!", {
-      icon: "🤓",
-      autoClose: 5000
-    });
-  }, [])
+  const {
+    isLoading,
+    loading,
+    product,
+    formatter,
+    handleMakeFavorite,
+    handleStoresLocations
+  } = useProductDetail()
 
   if (isLoading) return <LoadingPage />
 
@@ -110,7 +54,29 @@ export default function Products() {
                   </button>
                 )}
               </div>
-              <div>Mapa</div>
+              <div className={styles.mapArea}>
+                <Wrapper apiKey={"AIzaSyBQ2puBxF1OrvMTY-yQ-RUtaLVwNZ19A7A"}>
+                  <Map storesCoords={handleStoresLocations}>
+                    <Marker
+                      store={{
+                        name: 'Você',
+                        address: 'Sua localização atual'
+                      }}
+                      position={{lat: -23.5709, lng: -46.6451}} 
+                    />
+                    {product.stores.map((store, index) => (
+                      <Marker
+                        key={index}
+                        store={{
+                          name: store.name,
+                          address: store.address
+                        }}
+                        position={{lat: store.latitude, lng: store.longitude}} 
+                      />
+                    ))}
+                  </Map>
+                </Wrapper>
+              </div>
             </>
           ) : (
             <div>Impossível buscar o produto</div>

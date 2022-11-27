@@ -54,8 +54,8 @@ export type fullProductDetail = {
       _id: string;
       name: string;
       address: string;
-      latitude: string;
-      longitude: string;
+      latitude: number;
+      longitude: number;
     },
   ];
   createdDate: string;

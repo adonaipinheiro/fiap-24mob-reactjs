@@ -1,58 +1,18 @@
 import { Formik } from 'formik'
-import * as Yup from 'yup'
 import Head from 'next/head'
-import { useRouter } from 'next/router'
-import { useDispatch } from 'react-redux'
 import LoadingPage from '@components/loadingPage'
-import { toast } from 'react-toastify'
-
-import { API } from '@services/api'
-import styles from '@styles/SignIn.module.css'
-import { logIn } from '@store/auth/actions'
-import { setUser } from '@store/user/actions'
 import { Button, CircularProgress, TextField } from '@mui/material'
-import { useEffect } from 'react'
-import { useRedirect } from 'src/hooks/useRedirect'
+import styles from '@styles/SignIn.module.css'
+import useSignIn from 'src/hooks/useSignIn'
+
 
 export default function SignIn() {
-  const router = useRouter()
-  const dispatch = useDispatch()
-  const { isLoading, handleAuthRedirect } = useRedirect()
-
-  const LoginSchema = Yup.object().shape({
-    email: Yup.string().email("Digite um e-mail válido").required("Campo obrigatório").trim(),
-    pass: Yup.string().min(8, "A senha não atende os requisitos").required("Campo obrigatório").trim()
-  });
-
-  const handleSubmit = (
-    email: string, 
-    pass: string, 
-    setSubmitting: (a:boolean)=>void
-  ) => {
-    API.signIn(email, pass).then(resp=>{
-      dispatch(setUser(resp))
-      dispatch(logIn())
-      toast.success("Login realizado com sucesso!", {
-        icon: "🚀",
-        autoClose: 2500
-      });
-      router.replace("/")
-    }).catch((error)=>{
-      setSubmitting(false)
-      toast.error(error, {
-        icon: "😞",
-        autoClose: 2500
-      });
-    })
-  }
-
-  const handleSignUp = () => {
-    router.push('/signup');
-  }
-
-  useEffect(()=>{
-    handleAuthRedirect()
-  }, [handleAuthRedirect])
+  const {
+    isLoading, 
+    LoginSchema, 
+    handleSignUp, 
+    handleSubmit
+  } = useSignIn()
 
   if (isLoading) return <LoadingPage />
 

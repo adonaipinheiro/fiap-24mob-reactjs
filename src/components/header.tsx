@@ -1,35 +1,19 @@
-import { logOut } from "@store/auth/actions";
-import { removeUser } from "@store/user/actions";
 import Link from "next/link";
-import { FormEvent } from "react";
-import { useDispatch } from "react-redux";
-import { toast } from "react-toastify";
-import { useRedirect } from "src/hooks/useRedirect";
+import styles from '@styles/components/Header.module.css'
+import useHeader from "src/hooks/useHeader";
 
 export default function Header() {
-  const dispatch = useDispatch()
-  const { handleLogout } = useRedirect()
-
-  const logout = (e: FormEvent) => {
-    e.preventDefault()
-    toast.success("Você foi deslogado!", {
-      icon: "😞",
-      autoClose: 2500
-    });
-    dispatch(logOut())
-    dispatch(removeUser())
-    handleLogout()
-  }
+  const {name, logout} = useHeader()
 
   return (
-    <div>
+    <div className={styles.headerContainer}>
       <div>
-        <Link href="/">Home</Link>
-        <Link href="/favorites">Favoritos</Link>
+        <Link className={styles.headerMenuButton} href="/">Home</Link>
+        <Link className={styles.headerMenuButton} href="/favorites">Favoritos</Link>
       </div>
       <div>
-        <span>Adonai</span>
-        <button onClick={logout}>Logout</button>
+        <span className={styles.headerMenuButton}>Bem-vindo(a), {name}</span>
+        <button className={styles.headerButton} onClick={logout}>Logout</button>
       </div>
     </div>
   )

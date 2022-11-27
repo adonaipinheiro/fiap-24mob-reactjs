@@ -1,8 +1,11 @@
+import { setUser } from "@store/user/actions"
 import { useRouter } from "next/router"
 import { useCallback, useState } from "react"
+import { useDispatch } from "react-redux"
 
 const useRedirect = () => {
   const router = useRouter()
+  const dispatch = useDispatch()
   const [isLoading, setIsLoading] = useState<boolean>(true)
 
   const handleAuthRedirect = () => {
@@ -16,6 +19,11 @@ const useRedirect = () => {
 
   const redirect = useCallback((isLogged: boolean) => {
     if (isLogged) {
+      const user = localStorage.getItem('userInfo')
+      if (user) {
+        const userParsed = JSON.parse(user)
+        dispatch(setUser(userParsed))
+      }
       switch (router.asPath) {
         case '/signin':
         case '/signup':
@@ -36,7 +44,7 @@ const useRedirect = () => {
           break;
         }
     }
-  }, [router])
+  }, [dispatch, router])
 
   return {
     isLoading,

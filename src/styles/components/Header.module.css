@@ -1,0 +1,24 @@
+.headerContainer {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  padding: 1rem;
+  background-color: #1976d2;
+}
+
+.headerMenuButton {
+  color: #FFF;
+  margin-right: 1rem;
+  font-weight: bold;
+}
+
+.headerButton {
+  background-color: #FFF;
+  color: #1976d2;
+  font-weight: bold;
+  padding: 10px;
+  border-radius: 4px;
+  border-width: 0;
+}

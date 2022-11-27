@@ -1,8 +1,8 @@
 import axios from "axios";
 
-const serviceInstance = axios.create({
+const apiInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_BASE_URL,
   timeout: 10000,
 });
 
-export {serviceInstance}
+export {apiInstance}

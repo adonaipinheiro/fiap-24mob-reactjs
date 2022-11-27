@@ -1,27 +1,46 @@
 import Head from 'next/head'
 import Header from '@components/header'
 import LoadingPage from '@components/loadingPage'
-import Link from 'next/link'
-import { useRedirect } from 'src/hooks/useRedirect'
-import { useEffect } from 'react'
+import { CircularProgress } from '@mui/material'
+import styles from '@styles/Products.module.css'
+import ProductItem from '@components/productItem'
+import useFavorites from 'src/hooks/useFavorites'
 
 export default function Favorites() {
-  const { isLoading, handleAuthRedirect } = useRedirect()
-
-  useEffect(()=>{
-    handleAuthRedirect()
-  }, [handleAuthRedirect])
+  const {
+    isLoading, 
+    loading, 
+    products
+  } = useFavorites()
 
   if (isLoading) return <LoadingPage />
 
   return (
     <>
       <Head>
-        <title>Favorites</title>
+        <title>Favoritos | FIAP MBA</title>
       </Head>
-      <div>
+      <div className={styles.productsContainer}>
         <Header />
-        <Link href={"/product/123"}>Produto</Link>
+        <div>
+          {loading ? (
+            <div className={styles.productLoading}>
+              <CircularProgress size={24} />
+              <br/>
+              Carregando...
+            </div>
+          ) : (
+            products.length === 0 ? (
+              <div className={styles.productLoading}>
+                Não há produtos
+              </div>
+            ) : (
+              products.map(product => (
+                <ProductItem key={product._id} product={product} />
+              ))
+            )
+          )}
+        </div>
       </div>
     </>
   )

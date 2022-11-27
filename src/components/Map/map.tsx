@@ -64,7 +64,7 @@ const Map: React.FC<MapProps> = ({
       <div className={styles.map} ref={ref} style={style} />
       {Children.map(children, (child) => {
         if (isValidElement(child)) {
-          return cloneElement(child, { map });
+          return cloneElement<any>(child, { map });
         }
       })}
     </>

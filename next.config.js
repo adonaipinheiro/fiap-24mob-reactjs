@@ -6,9 +6,6 @@ const withPWA = require('next-pwa')({
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-  typescript: {
-    ignoreBuildErrors: true,
-  },
   experimental: {
     fontLoaders: [
       { loader: '@next/font/google', options: { subsets: ['latin'] } },

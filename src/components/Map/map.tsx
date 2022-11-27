@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Children, cloneElement, isValidElement, useEffect, useRef, useState } from "react";
+import { Children, cloneElement, isValidElement, ReactElement, useEffect, useRef, useState } from "react";
 import styles from '@styles/components/Map.module.css'
 
 interface MapProps extends google.maps.MapOptions {

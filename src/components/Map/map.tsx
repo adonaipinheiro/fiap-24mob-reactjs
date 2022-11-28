@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Children, cloneElement, isValidElement, ReactElement, useEffect, useRef, useState } from "react";
+import { Children, cloneElement, isValidElement, useEffect, useRef, useState } from "react";
 import styles from '@styles/components/Map.module.css'
+import useProductDetail from "src/hooks/useProductDetail";
 
 interface MapProps extends google.maps.MapOptions {
   style?: { [key: string]: string };
@@ -19,8 +20,9 @@ const Map: React.FC<MapProps> = ({
   ...options
 }) => {
   const ref = useRef<HTMLDivElement>(null);
+  const {userCoords} = useProductDetail()
   const [map, setMap] = useState<google.maps.Map>();
-  const center: google.maps.LatLngLiteral = {lat: -23.5709, lng: -46.6451};
+  const center: google.maps.LatLngLiteral = userCoords;
 
   useEffect(() => {
     if (map) {

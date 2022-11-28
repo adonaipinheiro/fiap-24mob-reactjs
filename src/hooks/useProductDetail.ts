@@ -9,6 +9,7 @@ import { toast } from 'react-toastify'
 export default function useProductDetail() {
   const router = useRouter()
   const [product, setProduct] = useState<fullProductDetail>()
+  const [userCoords, setUserCoords] = useState({lat: -23.5709, lng: -46.6451})
   const { isLoading, handleAuthRedirect, handleLogout } = useRedirect()
   const {id} = router.query as {id: string};
   const { getProductById, loading, makeFavorite } = useServices()
@@ -52,7 +53,12 @@ export default function useProductDetail() {
   const handleLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
-        console.log(position)
+        if (position.coords.latitude) {
+          setUserCoords({
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          })
+        }
       }, () => {
         toast.warning('Precisamos da sua permissão para buscar a sua localização', {
           icon: "🗺️",
@@ -93,6 +99,7 @@ export default function useProductDetail() {
     loading,
     formatter,
     handleMakeFavorite,
-    handleStoresLocations
+    handleStoresLocations,
+    userCoords
   }
 }

@@ -15,6 +15,7 @@ export default function Products() {
   const {
     isLoading,
     loading,
+    userCoords,
     product,
     formatter,
     handleMakeFavorite,
@@ -62,7 +63,7 @@ export default function Products() {
                         name: 'Você',
                         address: 'Sua localização atual'
                       }}
-                      position={{lat: -23.5709, lng: -46.6451}} 
+                      position={userCoords} 
                     />
                     {product.stores.map((store, index) => (
                       <Marker
